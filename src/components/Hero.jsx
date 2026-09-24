@@ -1,22 +1,25 @@
 import React, { useState } from "react";
-import { ArrowRight } from "lucide-react";
-import { MAP_DESTINATIONS } from "../data.js";
+import { ArrowRight, Star, ShieldCheck } from "lucide-react";
+import { MAP_DESTINATIONS, COMPANY_INFO } from "../data.js";
 
-const ISLE = "M140 12C160 8 175 22 172 40C180 60 200 75 205 100C215 130 222 160 228 190C240 230 250 260 240 300C232 340 215 370 190 395C175 410 155 405 140 390C115 372 100 340 95 310C88 270 92 230 100 200C105 170 95 140 105 110C112 85 118 60 128 40C130 28 134 18 140 12Z";
-const AIRPORT = { x: 98, y: 210 };
 const STATS = [["12+", "Years experience"], ["3,500+", "Happy guests"], ["4.9★", "Average rating"]];
+const MONTHS = ["Any month", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 export default function Hero() {
-  const [idx, setIdx] = useState(0);
-  const p = MAP_DESTINATIONS[idx];
-  const path = `M${AIRPORT.x} ${AIRPORT.y}Q${(AIRPORT.x + p.x) / 2 - 30} ${(AIRPORT.y + p.y) / 2 - 30} ${p.x} ${p.y}`;
+  const [dest, setDest] = useState("Anywhere in Sri Lanka");
+  const [when, setWhen] = useState("Any month");
+  const [pax, setPax] = useState("2");
+
+  const msg = `Hello NL Lanka, I would like a free quote: ${dest}, ${when}, ${pax} traveller(s).`;
+  const wa = "https://wa.me/" + COMPANY_INFO.whatsappRaw + "?text=" + encodeURIComponent(msg);
+
   return (
     <section id="home" className="hero">
       <div className="container hero-grid">
         <div>
           <div className="eyebrow"><span>NL Lanka Travel &amp; Tours · Negombo</span></div>
           <h1>Sri Lanka, <em>routed</em><br />your way.</h1>
-          <p className="lead">Private journeys with local chauffeur-guides. Pick a stop on the map and see where your trip could begin.</p>
+          <p className="lead">Private journeys with local chauffeur-guides. Tell us what you love and we will build the route around you.</p>
           <div className="row">
             <a href="#plan" className="btn btn-primary btn-lg">Build my trip <ArrowRight size={18} /></a>
             <a href="#journeys" className="btn btn-outline btn-lg">See journeys</a>
@@ -25,37 +28,52 @@ export default function Hero() {
             {STATS.map(([n, l]) => <div key={l}><b>{n}</b><span>{l}</span></div>)}
           </div>
         </div>
-        <div className="mapc">
-          <svg viewBox="0 0 300 420" className="map" role="img" aria-label="Map of Sri Lanka with tour stops">
-            <defs>
-              <linearGradient id="isle" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stopColor="#1556C8" /><stop offset="1" stopColor="#0D3E8C" />
-              </linearGradient>
-            </defs>
-            {[1, 2, 3].map((k) => <ellipse key={k} cx="150" cy="210" rx={60 + k * 50} ry={90 + k * 55} fill="none" stroke="rgba(255,255,255,.08)" />)}
-            <path d={ISLE} fill="url(#isle)" stroke="#E5A932" strokeWidth="2.5" strokeLinejoin="round" />
-            <path key={"r" + idx} d={path} className="fl" fill="none" />
-            <text x={AIRPORT.x - 6} y={AIRPORT.y + 4} fontSize="12" fill="#E5A932" textAnchor="end">✈ CMB</text>
-            {MAP_DESTINATIONS.map((d, k) => (
-              <g key={d.n} className={"pin" + (k === idx ? " on" : "")} onClick={() => setIdx(k)}>
-                <circle cx={d.x} cy={d.y} r="14" fill="transparent" />
-                {k === idx && <circle className="ring" cx={d.x} cy={d.y} r="5" />}
-                <circle className="d" cx={d.x} cy={d.y} r={k === idx ? 6 : 4} />
-                <text x={d.x + 11} y={d.y + 4}>{d.n}</text>
-              </g>
-            ))}
-          </svg>
-          <div className="pass">
-            <img src={p.image} alt={p.n} />
-            <div style={{ flex: 1 }}>
-              <span className="mono">CMB → {p.c}</span>
-              <h3>{p.n}</h3>
-              <p>{p.t}</p>
-              <span className="mono" style={{ color: "var(--gold-text)" }}>Best {p.b} · {p.d} days · from ${p.p}</span>
+
+        <div className="hp">
+          <div className="hp-photo">
+            <img className="img-cover" src="/images/destination-sigiriya.jpg" alt="Sigiriya Lion Rock, Sri Lanka" />
+          </div>
+          <div className="hp-chip"><Star size={15} fill="#E5A932" strokeWidth={0} /> 4.9 rated by 3,500+ guests</div>
+
+          <div className="hp-card">
+            <div className="hp-card-title"><ShieldCheck size={18} color="#0D3E8C" /> Get a free custom quote</div>
+            <div className="hp-fields">
+              <label>Destination
+                <select value={dest} onChange={(e) => setDest(e.target.value)}>
+                  <option>Anywhere in Sri Lanka</option>
+                  {MAP_DESTINATIONS.map((d) => <option key={d.n}>{d.n}</option>)}
+                </select>
+              </label>
+              <label>When
+                <select value={when} onChange={(e) => setWhen(e.target.value)}>
+                  {MONTHS.map((m) => <option key={m}>{m}</option>)}
+                </select>
+              </label>
+              <label>Travellers
+                <select value={pax} onChange={(e) => setPax(e.target.value)}>
+                  {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => <option key={n} value={n}>{n}</option>)}
+                </select>
+              </label>
             </div>
+            <a href={wa} target="_blank" rel="noopener noreferrer" className="btn btn-primary hp-btn">Request quote on WhatsApp <ArrowRight size={16} /></a>
           </div>
         </div>
       </div>
+      <style>{`
+        .hp { position: relative; height: 560px; }
+        .hp-photo { position: absolute; inset: 0 0 60px 0; border-radius: 28px; overflow: hidden; box-shadow: 0 24px 60px rgba(7, 21, 48, 0.25); }
+        .hp-photo:after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7, 21, 48, 0) 55%, rgba(7, 21, 48, 0.45)); }
+        .hp-chip { position: absolute; right: 18px; top: 18px; z-index: 2; display: flex; align-items: center; gap: 7px; background: #fff; color: #071530; font: 600 13.5px Inter, sans-serif; padding: 9px 15px; border-radius: 999px; box-shadow: 0 10px 28px rgba(7, 21, 48, 0.2); }
+        .hp-card { position: absolute; left: 24px; right: 24px; bottom: 0; z-index: 2; background: #fff; border-radius: 20px; padding: 20px 22px; box-shadow: 0 20px 50px rgba(7, 21, 48, 0.25); border: 1px solid #E2E8F0; }
+        .hp-card-title { display: flex; align-items: center; gap: 8px; font: 700 17px Fraunces, serif; color: #071530; margin-bottom: 14px; }
+        .hp-fields { display: grid; grid-template-columns: 1.3fr 1fr 0.7fr; gap: 12px; }
+        .hp-fields label { display: block; font: 600 11px ui-monospace, Menlo, monospace; letter-spacing: .1em; text-transform: uppercase; color: #64748B; }
+        .hp-fields select { width: 100%; margin-top: 6px; padding: 11px 10px; border: 1px solid #CBD5E1; border-radius: 10px; background: #F8FAFC; color: #071530; font: 500 14.5px Inter, sans-serif; }
+        .hp-fields select:focus { outline: 2px solid #0D3E8C; outline-offset: 1px; }
+        .hp-btn { width: 100%; justify-content: center; margin-top: 14px; }
+        @media (max-width: 900px) { .hp { height: 520px; } }
+        @media (max-width: 560px) { .hp { height: auto; } .hp-photo { position: relative; inset: auto; height: 260px; } .hp-card { position: relative; left: auto; right: auto; margin-top: -40px; } .hp-fields { grid-template-columns: 1fr; } }
+      `}</style>
     </section>
   );
 }

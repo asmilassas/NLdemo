@@ -74,7 +74,7 @@ export default function Footer() {
   return (
     <footer
       style={{
-        backgroundColor: 'var(--bg-navy)',
+        backgroundColor: '#1250A8', /* medium blue: change this colour to adjust the footer */
         color: '#FFFFFF',
         position: 'relative'
       }}
@@ -82,7 +82,8 @@ export default function Footer() {
       {/* Pre-footer CTA strip */}
       <div
         style={{
-          backgroundColor: 'var(--royal)',
+          backgroundColor: '#FFFFFF',
+          borderTop: '1px solid #E2E8F0',
           padding: '48px 0',
           textAlign: 'center'
         }}
@@ -94,7 +95,7 @@ export default function Footer() {
               fontSize: 'clamp(26px, 3.5vw, 38px)',
               fontWeight: 700,
               marginBottom: '12px',
-              color: '#FFFFFF'
+              color: '#071530'
             }}
           >
             Your Sri Lanka Journey Starts Here
@@ -102,7 +103,7 @@ export default function Footer() {
           <p
             style={{
               fontSize: '16px',
-              color: '#C8DBFA',
+              color: '#475569',
               marginBottom: '28px',
               maxWidth: '540px',
               marginLeft: 'auto',
@@ -124,7 +125,7 @@ export default function Footer() {
               <span>Customize Your Trip</span>
               <ArrowRight size={16} />
             </a>
-            <a href="#contact" className="btn btn-secondary">
+            <a href="#contact" className="btn btn-outline">
               <span>Talk to Our Team</span>
             </a>
           </div>
@@ -191,7 +192,7 @@ export default function Footer() {
                 style={{
                   fontSize: '14px',
                   lineHeight: 1.6,
-                  color: '#94A3B8',
+                  color: '#C8D6F0',
                   maxWidth: '300px',
                   marginBottom: '24px'
                 }}
@@ -221,7 +222,7 @@ export default function Footer() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: '#CBD5E1',
+                        color: '#E2E9F6',
                         transition: 'all 0.2s ease'
                       }}
                       onMouseEnter={(e) => {
@@ -233,7 +234,7 @@ export default function Footer() {
                       onMouseLeave={(e) => {
                         e.currentTarget.style.backgroundColor =
                           'rgba(255, 255, 255, 0.06)';
-                        e.currentTarget.style.color = '#CBD5E1';
+                        e.currentTarget.style.color = '#E2E9F6';
                         e.currentTarget.style.borderColor =
                           'rgba(255, 255, 255, 0.12)';
                       }}
@@ -279,14 +280,14 @@ export default function Footer() {
                       href={link.href}
                       style={{
                         fontSize: '14px',
-                        color: '#94A3B8',
+                        color: '#C8D6F0',
                         transition: 'color 0.2s ease'
                       }}
                       onMouseEnter={(e) =>
                         (e.currentTarget.style.color = 'var(--gold)')
                       }
                       onMouseLeave={(e) =>
-                        (e.currentTarget.style.color = '#94A3B8')
+                        (e.currentTarget.style.color = '#C8D6F0')
                       }
                     >
                       {link.label}
@@ -326,14 +327,14 @@ export default function Footer() {
                       href="#services"
                       style={{
                         fontSize: '14px',
-                        color: '#94A3B8',
+                        color: '#C8D6F0',
                         transition: 'color 0.2s ease'
                       }}
                       onMouseEnter={(e) =>
                         (e.currentTarget.style.color = 'var(--gold)')
                       }
                       onMouseLeave={(e) =>
-                        (e.currentTarget.style.color = '#94A3B8')
+                        (e.currentTarget.style.color = '#C8D6F0')
                       }
                     >
                       {svc}
@@ -374,7 +375,7 @@ export default function Footer() {
                   <Phone size={16} color="var(--gold)" />
                   <a
                     href={'tel:' + COMPANY_INFO.whatsappRaw}
-                    style={{ fontSize: '14px', color: '#CBD5E1' }}
+                    style={{ fontSize: '14px', color: '#E2E9F6' }}
                   >
                     {COMPANY_INFO.phoneFormatted}
                   </a>
@@ -389,7 +390,7 @@ export default function Footer() {
                   <Mail size={16} color="var(--gold)" />
                   <a
                     href={'mailto:' + COMPANY_INFO.email}
-                    style={{ fontSize: '14px', color: '#CBD5E1' }}
+                    style={{ fontSize: '14px', color: '#E2E9F6' }}
                   >
                     {COMPANY_INFO.email}
                   </a>
@@ -406,7 +407,7 @@ export default function Footer() {
                     color="var(--gold)"
                     style={{ marginTop: '3px', flexShrink: 0 }}
                   />
-                  <span style={{ fontSize: '14px', color: '#94A3B8' }}>
+                  <span style={{ fontSize: '14px', color: '#C8D6F0' }}>
                     {COMPANY_INFO.address}
                   </span>
                 </div>
@@ -432,7 +433,7 @@ export default function Footer() {
             flexWrap: 'wrap',
             gap: '10px',
             fontSize: '13px',
-            color: '#64748B'
+            color: '#B5C4E0'
           }}
         >
           <span>

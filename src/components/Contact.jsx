@@ -28,7 +28,7 @@ export default function Contact() {
     <section
       id="contact"
       className="section-spacing"
-      style={{ backgroundColor: 'var(--bg-primary)' }}
+      style={{ backgroundColor: '#DCE8FA' }}
     >
       <div className="container">
         <div

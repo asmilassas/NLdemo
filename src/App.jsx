@@ -1,7 +1,6 @@
 import React from 'react';
 import Navbar from './components/Navbar.jsx';
 import Hero from './components/Hero.jsx';
-import Marquee from './components/Marquee.jsx';
 import Highlights from './components/Highlights.jsx';
 import About from './components/About.jsx';
 import Journeys from './components/Journeys.jsx';
@@ -18,7 +17,6 @@ export default function App() {
     <>
       <Navbar />
       <Hero />
-      <Marquee />
       <Highlights />
       <About />
       <Journeys />
