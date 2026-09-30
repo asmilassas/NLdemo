@@ -6,6 +6,7 @@ import About from './components/About.jsx';
 import Journeys from './components/Journeys.jsx';
 import Planner from './components/Planner.jsx';
 import Services from './components/Services.jsx';
+import WhyChooseUs from './components/WhyChooseUs.jsx';
 import Gallery from './components/Gallery.jsx';
 import Reviews from './components/Reviews.jsx';
 import Contact from './components/Contact.jsx';
@@ -22,6 +23,7 @@ export default function App() {
       <Journeys />
       <Planner />
       <Services />
+      <WhyChooseUs />
       <Gallery />
       <Reviews />
       <Contact />

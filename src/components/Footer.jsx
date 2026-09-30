@@ -1,16 +1,8 @@
-import React from 'react';
-import {
-  Phone,
-  Mail,
-  MapPin,
-  ArrowRight,
-  MessageCircle
-} from 'lucide-react';
-import logo from '../assets/logo.png';
-import { COMPANY_INFO, SOCIAL_LINKS } from '../data.js';
+import React from "react";
+import { Phone, Mail, MapPin, ArrowRight, MessageCircle } from "lucide-react";
+import nlLogo from "../assets/nl-logo.png";
+import { COMPANY_INFO, SOCIAL_LINKS } from "../data.js";
 
-/* Map platform names to Lucide icons */
-/* lucide-react v1 removed brand icons, so these are inline SVGs */
 function FacebookIcon({ size = 18 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -29,181 +21,89 @@ function InstagramIcon({ size = 18 }) {
   );
 }
 
-const platformIcons = {
-  Facebook: FacebookIcon,
-  Instagram: InstagramIcon,
-  TikTok: null, // will use custom SVG below
-  WhatsApp: MessageCircle
-};
-
 function TikTokIcon({ size = 18 }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
     </svg>
   );
 }
 
+const platformIcons = {
+  Facebook: FacebookIcon,
+  Instagram: InstagramIcon,
+  TikTok: TikTokIcon,
+  WhatsApp: MessageCircle
+};
+
 export default function Footer() {
   const quickLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'Journeys', href: '#journeys' },
-    { label: 'Trip Planner', href: '#plan' },
-    { label: 'About Us', href: '#about' },
-    { label: 'Gallery', href: '#gallery' },
-    { label: 'Contact', href: '#contact' }
+    { label: "Home", href: "#home" },
+    { label: "Journeys", href: "#journeys" },
+    { label: "Trip Planner", href: "#plan" },
+    { label: "About Us", href: "#about" },
+    { label: "Gallery", href: "#gallery" },
+    { label: "Contact", href: "#contact" }
   ];
 
   const serviceLinks = [
-    'Private Custom Tours',
-    'Chauffeur-Guide Service',
-    'Airport Transfers',
-    'Hotel & Resort Booking',
-    'Honeymoon Packages'
+    "Private Custom Tours",
+    "Chauffeur-Guide Service",
+    "Airport Transfers",
+    "Hotel & Resort Booking",
+    "Honeymoon Packages"
   ];
 
   return (
-    <footer
-      style={{
-        backgroundColor: '#1250A8', /* medium blue: change this colour to adjust the footer */
-        color: '#FFFFFF',
-        position: 'relative'
-      }}
-    >
-      {/* Pre-footer CTA strip */}
-      <div
-        style={{
-          backgroundColor: '#FFFFFF',
-          borderTop: '1px solid #E2E8F0',
-          padding: '48px 0',
-          textAlign: 'center'
-        }}
-      >
+    <footer className="site-footer">
+      {/* Pre-Footer Call to Action Strip (matching reference's high impact banner) */}
+      <div className="pre-footer-banner">
         <div className="container">
-          <h2
-            style={{
-              fontFamily: "'Fraunces', Georgia, serif",
-              fontSize: 'clamp(26px, 3.5vw, 38px)',
-              fontWeight: 700,
-              marginBottom: '12px',
-              color: '#071530'
-            }}
-          >
-            Your Sri Lanka Journey Starts Here
-          </h2>
-          <p
-            style={{
-              fontSize: '16px',
-              color: '#475569',
-              marginBottom: '28px',
-              maxWidth: '540px',
-              marginLeft: 'auto',
-              marginRight: 'auto'
-            }}
-          >
-            Build your own custom itinerary or chat with our travel desk for a
-            free expert consultation.
-          </p>
-          <div
-            style={{
-              display: 'flex',
-              gap: '16px',
-              justifyContent: 'center',
-              flexWrap: 'wrap'
-            }}
-          >
-            <a href="#plan" className="btn btn-primary">
-              <span>Customize Your Trip</span>
-              <ArrowRight size={16} />
-            </a>
-            <a href="#contact" className="btn btn-outline">
-              <span>Talk to Our Team</span>
-            </a>
+          <div className="pre-footer-content">
+            <h2 className="pre-footer-heading">Your Sri Lanka Journey Starts Here</h2>
+            <p className="pre-footer-sub">
+              Build your own custom itinerary or chat with our travel desk for a free expert consultation.
+            </p>
+            <div className="pre-footer-actions">
+              <a href="#plan" className="btn btn-primary btn-lg">
+                <span>Customize Your Trip</span>
+                <ArrowRight size={16} />
+              </a>
+              <a href="#contact" className="btn btn-secondary btn-lg">
+                <span>Talk to Our Team</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Main footer columns */}
-      <div style={{ padding: '64px 0 40px' }}>
+      {/* Main Multi-Column Footer */}
+      <div className="main-footer-body">
         <div className="container">
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: '1.4fr 0.8fr 0.8fr 1fr',
-              gap: '48px'
-            }}
-            className="footer-grid"
-          >
-            {/* Col 1: Brand */}
-            <div>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '14px',
-                  marginBottom: '20px'
-                }}
-              >
+          <div className="footer-columns-grid">
+            {/* Col 1: Brand & Tagline */}
+            <div className="footer-brand-col">
+              <div className="footer-brand-header">
                 <img
-                  src={logo}
-                  alt="NL Lanka"
+                  src={nlLogo}
+                  alt="NL Lanka Travels & Tours"
                   style={{
-                    width: '42px',
-                    height: '42px',
-                    borderRadius: '10px',
-                    objectFit: 'cover',
-                    backgroundColor: '#FFFFFF'
+                    height: "46px",
+                    width: "auto",
+                    maxWidth: "200px",
+                    objectFit: "contain",
+                    display: "block",
+                    filter: "drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3))"
                   }}
                 />
-                <div>
-                  <div
-                    style={{
-                      fontFamily: "'Fraunces', Georgia, serif",
-                      fontSize: '20px',
-                      fontWeight: 800,
-                      lineHeight: 1
-                    }}
-                  >
-                    NL Lanka
-                  </div>
-                  <div
-                    style={{
-                      fontSize: '11px',
-                      fontWeight: 600,
-                      letterSpacing: '0.14em',
-                      textTransform: 'uppercase',
-                      color: 'var(--gold)'
-                    }}
-                  >
-                    Travel & Tours
-                  </div>
-                </div>
               </div>
-              <p
-                style={{
-                  fontSize: '14px',
-                  lineHeight: 1.6,
-                  color: '#C8D6F0',
-                  maxWidth: '300px',
-                  marginBottom: '24px'
-                }}
-              >
-                {COMPANY_INFO.tagline}. Based in {COMPANY_INFO.location},
-                delivering bespoke private journeys across all nine provinces of
-                Sri Lanka since 2014.
+
+              <p className="footer-brand-desc">
+                {COMPANY_INFO.tagline}. Based in {COMPANY_INFO.location}, delivering bespoke private journeys across all nine provinces of Sri Lanka since 2014.
               </p>
 
-              {/* Social Icons */}
-              <div style={{ display: 'flex', gap: '12px' }}>
+              {/* Social Media Links */}
+              <div className="footer-social-row">
                 {SOCIAL_LINKS.map((social) => {
                   const Icon = platformIcons[social.platform];
                   return (
@@ -213,37 +113,9 @@ export default function Footer() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={social.label}
-                      style={{
-                        width: '38px',
-                        height: '38px',
-                        borderRadius: '10px',
-                        backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                        border: '1px solid rgba(255, 255, 255, 0.12)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#E2E9F6',
-                        transition: 'all 0.2s ease'
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor =
-                          'var(--gold)';
-                        e.currentTarget.style.color = '#1A1300';
-                        e.currentTarget.style.borderColor = 'var(--gold)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor =
-                          'rgba(255, 255, 255, 0.06)';
-                        e.currentTarget.style.color = '#E2E9F6';
-                        e.currentTarget.style.borderColor =
-                          'rgba(255, 255, 255, 0.12)';
-                      }}
+                      className="footer-social-pill"
                     >
-                      {social.platform === 'TikTok' ? (
-                        <TikTokIcon size={18} />
-                      ) : Icon ? (
-                        <Icon size={18} />
-                      ) : null}
+                      {Icon ? <Icon size={17} /> : null}
                     </a>
                   );
                 })}
@@ -252,44 +124,11 @@ export default function Footer() {
 
             {/* Col 2: Quick Links */}
             <div>
-              <h4
-                style={{
-                  fontSize: '14px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  marginBottom: '20px',
-                  color: '#FFFFFF'
-                }}
-              >
-                Quick Links
-              </h4>
-              <ul
-                style={{
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: 0,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px'
-                }}
-              >
+              <h4 className="footer-col-heading">Quick Links</h4>
+              <ul className="footer-links-list">
                 {quickLinks.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      style={{
-                        fontSize: '14px',
-                        color: '#C8D6F0',
-                        transition: 'color 0.2s ease'
-                      }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.color = 'var(--gold)')
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.color = '#C8D6F0')
-                      }
-                    >
+                    <a href={link.href} className="footer-link">
                       {link.label}
                     </a>
                   </li>
@@ -299,44 +138,11 @@ export default function Footer() {
 
             {/* Col 3: Services */}
             <div>
-              <h4
-                style={{
-                  fontSize: '14px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  marginBottom: '20px',
-                  color: '#FFFFFF'
-                }}
-              >
-                Services
-              </h4>
-              <ul
-                style={{
-                  listStyle: 'none',
-                  padding: 0,
-                  margin: 0,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '12px'
-                }}
-              >
+              <h4 className="footer-col-heading">Services</h4>
+              <ul className="footer-links-list">
                 {serviceLinks.map((svc) => (
                   <li key={svc}>
-                    <a
-                      href="#services"
-                      style={{
-                        fontSize: '14px',
-                        color: '#C8D6F0',
-                        transition: 'color 0.2s ease'
-                      }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.color = 'var(--gold)')
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.color = '#C8D6F0')
-                      }
-                    >
+                    <a href="#services" className="footer-link">
                       {svc}
                     </a>
                   </li>
@@ -346,68 +152,25 @@ export default function Footer() {
 
             {/* Col 4: Contact */}
             <div>
-              <h4
-                style={{
-                  fontSize: '14px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  marginBottom: '20px',
-                  color: '#FFFFFF'
-                }}
-              >
-                Contact Us
-              </h4>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '16px'
-                }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px'
-                  }}
-                >
-                  <Phone size={16} color="var(--gold)" />
-                  <a
-                    href={'tel:' + COMPANY_INFO.whatsappRaw}
-                    style={{ fontSize: '14px', color: '#E2E9F6' }}
-                  >
+              <h4 className="footer-col-heading">Contact Us</h4>
+              <div className="footer-contact-list">
+                <div className="footer-contact-item">
+                  <Phone size={16} color="var(--accent-sky)" />
+                  <a href={`tel:${COMPANY_INFO.whatsappRaw}`} className="footer-contact-link">
                     {COMPANY_INFO.phoneFormatted}
                   </a>
                 </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '12px'
-                  }}
-                >
-                  <Mail size={16} color="var(--gold)" />
-                  <a
-                    href={'mailto:' + COMPANY_INFO.email}
-                    style={{ fontSize: '14px', color: '#E2E9F6' }}
-                  >
+
+                <div className="footer-contact-item">
+                  <Mail size={16} color="var(--accent-sky)" />
+                  <a href={`mailto:${COMPANY_INFO.email}`} className="footer-contact-link">
                     {COMPANY_INFO.email}
                   </a>
                 </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '12px'
-                  }}
-                >
-                  <MapPin
-                    size={16}
-                    color="var(--gold)"
-                    style={{ marginTop: '3px', flexShrink: 0 }}
-                  />
-                  <span style={{ fontSize: '14px', color: '#C8D6F0' }}>
+
+                <div className="footer-contact-item">
+                  <MapPin size={16} color="var(--accent-sky)" style={{ marginTop: "3px", flexShrink: 0 }} />
+                  <span className="footer-contact-text">
                     {COMPANY_INFO.address}
                   </span>
                 </div>
@@ -417,43 +180,195 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div
-        style={{
-          borderTop: '1px solid rgba(255, 255, 255, 0.08)',
-          padding: '20px 0'
-        }}
-      >
-        <div
-          className="container"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '10px',
-            fontSize: '13px',
-            color: '#B5C4E0'
-          }}
-        >
-          <span>
-            &copy; {new Date().getFullYear()} {COMPANY_INFO.fullName}. All
-            rights reserved.
-          </span>
+      {/* Bottom Bar */}
+      <div className="footer-bottom-bar">
+        <div className="container footer-bottom-inner">
+          <span>&copy; {new Date().getFullYear()} {COMPANY_INFO.fullName}. All rights reserved.</span>
           <span>Crafted with care in Negombo, Sri Lanka</span>
         </div>
       </div>
 
       <style>{`
-        @media (max-width: 900px) {
-          .footer-grid {
-            grid-template-columns: 1fr 1fr !important;
-            gap: 36px !important;
+        .site-footer {
+          background-color: var(--bg-navy-dark);
+          color: #FFFFFF;
+          position: relative;
+        }
+
+        /* Pre-Footer Banner */
+        .pre-footer-banner {
+          background: #FFFFFF;
+          border-top: 1px solid var(--border-subtle);
+          border-bottom: 1px solid var(--border-subtle);
+          padding: 64px 0;
+          text-align: center;
+        }
+
+        .pre-footer-content {
+          max-width: 640px;
+          margin: 0 auto;
+        }
+
+        .pre-footer-heading {
+          font-size: clamp(28px, 4vw, 42px);
+          font-weight: 800;
+          color: var(--text-heading);
+          margin-bottom: 12px;
+          letter-spacing: -0.025em;
+        }
+
+        .pre-footer-sub {
+          font-size: 16px;
+          color: var(--text-body);
+          line-height: 1.6;
+          margin-bottom: 28px;
+        }
+
+        .pre-footer-actions {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 14px;
+          flex-wrap: wrap;
+        }
+
+        /* Main Footer Body */
+        .main-footer-body {
+          padding: 72px 0 48px;
+        }
+
+        .footer-columns-grid {
+          display: grid;
+          grid-template-columns: 1.4fr 0.8fr 0.8fr 1fr;
+          gap: 48px;
+        }
+
+        .footer-brand-header {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          margin-bottom: 18px;
+        }
+
+        .footer-brand-desc {
+          font-size: 14px;
+          color: #CBD5E1;
+          line-height: 1.6;
+          max-width: 320px;
+          margin-bottom: 24px;
+        }
+
+        .footer-social-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .footer-social-pill {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: #E2E8F0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+          text-decoration: none;
+        }
+
+        .footer-social-pill:hover {
+          background: var(--accent-sky);
+          border-color: var(--accent-sky);
+          color: var(--bg-navy-dark);
+          transform: translateY(-2px);
+        }
+
+        .footer-col-heading {
+          font-size: 12px;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          color: var(--accent-sky);
+          margin-bottom: 20px;
+        }
+
+        .footer-links-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+
+        .footer-link {
+          font-size: 14px;
+          color: #CBD5E1;
+          text-decoration: none;
+          transition: color 0.18s ease;
+        }
+
+        .footer-link:hover {
+          color: #FFFFFF;
+        }
+
+        .footer-contact-list {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .footer-contact-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .footer-contact-link {
+          font-size: 14px;
+          color: #E2E8F0;
+          text-decoration: none;
+          transition: color 0.18s ease;
+        }
+
+        .footer-contact-link:hover {
+          color: var(--accent-sky);
+        }
+
+        .footer-contact-text {
+          font-size: 13.5px;
+          color: #CBD5E1;
+          line-height: 1.5;
+        }
+
+        /* Bottom Bar */
+        .footer-bottom-bar {
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          padding: 24px 0;
+        }
+
+        .footer-bottom-inner {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 12px;
+          font-size: 13px;
+          color: #94A3B8;
+        }
+
+        @media (max-width: 960px) {
+          .footer-columns-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
           }
         }
+
         @media (max-width: 560px) {
-          .footer-grid {
-            grid-template-columns: 1fr !important;
+          .footer-columns-grid {
+            grid-template-columns: 1fr;
           }
         }
       `}</style>

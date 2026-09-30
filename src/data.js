@@ -157,7 +157,7 @@ export const SERVICES = [
     num: '01',
     title: 'Private Custom Tours & Itineraries',
     desc: '100% tailor-made routes built around your exact travel dates, travel pace, interests, and budget.',
-    image: 'public/images/elephant.png',
+    image: '/images/elephant.png',
     features: ['Custom day-by-day pacing', 'Curated sightseeing stops', 'Flexible on-road schedule']
   },
   {
@@ -248,7 +248,40 @@ export const GALLERY = [
   { src: '/images/hero-sigiriya.jpg', title: 'Lion Rock Citadel', subtitle: 'Sigiriya Ancient Fortress' },
   { src: '/images/gallery-train.jpg', title: 'Scenic Hill Train', subtitle: 'Demodara & Ella Gap' },
   { src: '/images/gallery-elephant.jpg', title: 'Wild Elephants', subtitle: 'Udawalawe & Yala Safari' },
-  { src: 'public/images/nuwaraeliya.png', title: 'Lush Ceylon Tea Terraces', subtitle: 'Nuwara Eliya Highlands' },
+  { src: '/images/nuwaraeliya.png', title: 'Lush Ceylon Tea Terraces', subtitle: 'Nuwara Eliya Highlands' },
   { src: '/images/gallery-beach.jpg', title: 'Golden Palm Coastlines', subtitle: 'Mirissa & Southern Beaches' },
   { src: '/images/destination-galle.jpg', title: 'Historic Dutch Ramparts', subtitle: 'Galle Fort UNESCO World Heritage' }
+];
+
+export const WHY_CHOOSE_US = [
+  {
+    title: 'Certified Chauffeur-Guides',
+    desc: 'Government-licensed, English-fluent local drivers with comprehensive tourist passenger insurance and spotless vehicles.',
+    badge: 'Verified Safety'
+  },
+  {
+    title: '100% Tailor-Made Pacing',
+    desc: 'No rigid tour bus schedules. Stop at scenic viewpoints, stay longer at ancient sites, and travel strictly at your rhythm.',
+    badge: 'Private & Flexible'
+  },
+  {
+    title: '24/7 Negombo & Airport Desk',
+    desc: 'Headquartered 15 minutes from CMB Airport. Flight tracking, midnight pickups, and round-the-clock on-road guest support.',
+    badge: 'Always Accessible'
+  },
+  {
+    title: 'Transparent Fair Pricing',
+    desc: 'All-inclusive private vehicle quotes with fuel, highway tolls, parking, driver accommodation, and no hidden surprises.',
+    badge: 'No Surge Fees'
+  },
+  {
+    title: 'Handpicked Boutique Stays',
+    desc: 'Direct partner rates at heritage colonial bungalows, tea estate villas, and beachfront eco-resorts across Sri Lanka.',
+    badge: 'Curated Quality'
+  },
+  {
+    title: 'Deep Local Province Access',
+    desc: 'Over 12 years of insider connections across Sri Lanka’s 9 provinces—unlocking authentic food, culture, and quiet roads.',
+    badge: '12+ Years Roots'
+  }
 ];
