@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { ArrowRight, Star, ShieldCheck, Check, Plane, MapPin, Sparkles, Clock, Compass } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ArrowRight, Star, ShieldCheck, Check, Plane, MapPin, Clock, Compass, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
 import { MAP_DESTINATIONS, COMPANY_INFO } from "../data.js";
 
 const STATS = [
@@ -24,10 +24,106 @@ const MONTHS = [
   "December"
 ];
 
+const HERO_SLIDES = [
+  {
+    image: "/images/hero/sigiriya-rock-fortress.jpg",
+    title: "Sigiriya Rock Fortress",
+    location: "Cultural Triangle · UNESCO World Heritage",
+    subtitle: "Climb the ancient Lion Rock citadel at sunrise",
+    route: "CMB → SIGIRIYA",
+    tag: "Ancient Wonder"
+  },
+  {
+    image: "/images/hero/ella-nine-arch-bridge.jpg",
+    title: "Nine Arch Bridge",
+    location: "Ella Highlands · Demodara Gap",
+    subtitle: "Iconic colonial stone viaduct tucked in misty cloud forests",
+    route: "KDY → ELLA",
+    tag: "Scenic Hill Train"
+  },
+  {
+    image: "/images/hero/kandy-dalada-maligawa.jpg",
+    title: "Temple of the Tooth Relic",
+    location: "Kandy · Sacred Royal Capital",
+    subtitle: "Revered Buddhist heritage surrounded by tea-carpeted hills",
+    route: "SIGIRIYA → KANDY",
+    tag: "Living Heritage"
+  },
+  {
+    image: "/images/hero/nuwara-eliya-tea.jpg",
+    title: "Ceylon Tea Terraces",
+    location: "Nuwara Eliya · Little England",
+    subtitle: "Emerald highland plantations, cool mist and waterfalls",
+    route: "KANDY → NUWARA ELIYA",
+    tag: "Highland Estates"
+  },
+  {
+    image: "/images/hero/galle-fort-lighthouse.jpg",
+    title: "Historic Galle Fort Ramparts",
+    location: "Southern Coast · UNESCO Living Fortress",
+    subtitle: "Cobblestone alleys, Dutch colonial bastions and ocean sunsets",
+    route: "MIRISSA → GALLE",
+    tag: "Colonial Coast"
+  },
+  {
+    image: "/images/hero/mirissa-coconut-tree-hill.jpg",
+    title: "Coconut Tree Hill & Mirissa",
+    location: "Southern Province · Palm Bay",
+    subtitle: "Turquoise Indian Ocean swells, surf breaks and whale safaris",
+    route: "YALA → MIRISSA",
+    tag: "Tropical Beaches"
+  },
+  {
+    image: "/images/hero/bentota-madu-river.jpg",
+    title: "Madu River Safari & Bentota",
+    location: "South-West Coast · Mangrove Lagoon",
+    subtitle: "Boat safaris through mangrove tunnels and peaceful estuaries",
+    route: "COLOMBO → BENTOTA",
+    tag: "Coastal Lagoon"
+  },
+  {
+    image: "/images/hero/colombo-lotus-tower.jpg",
+    title: "Colombo Skyline & Lotus Tower",
+    location: "Western Province · Commercial Capital",
+    subtitle: "Vibrant seaside promenade, modern cityscapes and street dining",
+    route: "CMB AIRPORT → COLOMBO",
+    tag: "Urban Capital"
+  },
+  {
+    image: "/images/hero/negombo-dutch-canal.jpg",
+    title: "Negombo Lagoon & Dutch Canal",
+    location: "Negombo · Our Hometown (15 min from CMB)",
+    subtitle: "Traditional catamarans, beachside seafood and historic canals",
+    route: "CMB AIRPORT → NEGOMBO",
+    tag: "Negombo Roots"
+  }
+];
+
 export default function Hero() {
   const [dest, setDest] = useState("Anywhere in Sri Lanka");
   const [when, setWhen] = useState("Any month");
   const [pax, setPax] = useState("2");
+  const [slideIdx, setSlideIdx] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Auto-advance loop every 4.8 seconds when not paused
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(() => {
+      setSlideIdx((prev) => (prev + 1) % HERO_SLIDES.length);
+    }, 4800);
+    return () => clearInterval(timer);
+  }, [isPaused]);
+
+  const currentSlide = HERO_SLIDES[slideIdx];
+
+  const prevSlide = () => {
+    setSlideIdx((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+  };
+
+  const nextSlide = () => {
+    setSlideIdx((prev) => (prev + 1) % HERO_SLIDES.length);
+  };
 
   const msg = `Hello NL Lanka, I would like a free quote: ${dest}, ${when}, ${pax} traveller(s).`;
   const wa = "https://wa.me/" + COMPANY_INFO.whatsappRaw + "?text=" + encodeURIComponent(msg);
@@ -80,7 +176,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Large Rounded Visual Panel below Hero content (with depth cards) */}
+        {/* Large Rounded Visual Panel with Auto-Looping Hero Showcase */}
         <div className="hero-panel-wrapper">
           {/* Floating Card: Verified Guides (Top-Left) */}
           <div className="hero-float-card float-top-left animate-float-slow">
@@ -110,7 +206,7 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Floating Card: 100% Custom (Bottom-Left) */}
+          {/* Floating Card: 100% Custom (Left-Center) */}
           <div className="hero-float-card float-bottom-left animate-float-delayed">
             <div className="float-badge-icon" style={{ backgroundColor: "#082F49" }}>
               <Compass size={14} />
@@ -124,28 +220,88 @@ export default function Hero() {
           </div>
 
           {/* The Main Rounded Visual Surface */}
-          <div className="hero-showcase-panel">
-            {/* Visual Header Strip */}
+          <div
+            className="hero-showcase-panel"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {/* Visual Header Strip with Dynamic Route Information */}
             <div className="showcase-topbar">
               <div className="showcase-status">
                 <span className="live-dot"></span>
-                <span>Private Itinerary Showcase · Sigiriya Lion Rock Fortress</span>
+                <span>Private Itinerary Showcase · {currentSlide.title}</span>
               </div>
-              <span className="showcase-code">CMB → SGR → KDY → ELL</span>
+              <div className="showcase-route-group">
+                <span className="showcase-tag-badge">{currentSlide.tag}</span>
+                <span className="showcase-code">{currentSlide.route}</span>
+              </div>
             </div>
 
-            {/* Visual Photo Area */}
+            {/* Visual Photo Area with Loop Transition */}
             <div className="showcase-photo-container">
-              <img
-                src="/images/destination-sigiriya.jpg"
-                alt="Sigiriya Lion Rock Citadel, Sri Lanka"
-                className="img-cover"
-                loading="eager"
-              />
-              <div className="photo-scrim"></div>
-              <div className="photo-caption-tag">
-                <MapPin size={13} />
-                <span>Sigiriya, Cultural Triangle · Ancient UNESCO Citadel</span>
+              {HERO_SLIDES.map((slide, idx) => (
+                <div
+                  key={slide.image}
+                  className={`showcase-slide ${idx === slideIdx ? "active" : ""}`}
+                  aria-hidden={idx !== slideIdx}
+                >
+                  <img
+                    src={slide.image}
+                    alt={slide.title}
+                    className="img-cover slide-img"
+                    loading={idx === 0 ? "eager" : "lazy"}
+                  />
+                  <div className="photo-scrim"></div>
+                </div>
+              ))}
+
+              {/* Slide Overlay Text Caption */}
+              <div className="slide-content-overlay">
+                <div className="slide-tag-pill">
+                  <Sparkles size={12} color="var(--accent-sky)" />
+                  <span>{currentSlide.tag}</span>
+                </div>
+                <h3 className="slide-title-text">{currentSlide.title}</h3>
+                <div className="slide-subtitle-row">
+                  <div className="photo-caption-tag">
+                    <MapPin size={13} color="var(--accent-sky)" />
+                    <span>{currentSlide.location}</span>
+                  </div>
+                  <span className="slide-desc-pill">{currentSlide.subtitle}</span>
+                </div>
+              </div>
+
+              {/* Prev / Next Slide Navigation Controls */}
+              <div className="slide-nav-controls">
+                <button
+                  type="button"
+                  onClick={prevSlide}
+                  className="slide-arrow-btn"
+                  aria-label="Previous destination"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  className="slide-arrow-btn"
+                  aria-label="Next destination"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+
+              {/* Slide Position Indicator Dots */}
+              <div className="slide-dots-container">
+                {HERO_SLIDES.map((slide, idx) => (
+                  <button
+                    key={slide.title}
+                    type="button"
+                    onClick={() => setSlideIdx(idx)}
+                    className={`slide-dot-pill ${idx === slideIdx ? "active" : ""}`}
+                    aria-label={`View ${slide.title}`}
+                  />
+                ))}
               </div>
             </div>
 
@@ -355,7 +511,7 @@ export default function Hero() {
         .hero-panel-wrapper {
           position: relative;
           width: 100%;
-          max-width: 1040px;
+          max-width: 1060px;
           margin: 0 auto;
         }
 
@@ -384,8 +540,11 @@ export default function Hero() {
           display: flex;
           align-items: center;
           gap: 8px;
-          font-weight: 600;
+          font-weight: 700;
           color: var(--text-heading);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .live-dot {
@@ -394,43 +553,196 @@ export default function Hero() {
           border-radius: 50%;
           background: var(--accent-sky);
           box-shadow: 0 0 8px var(--accent-sky);
+          flex-shrink: 0;
+        }
+
+        .showcase-route-group {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-shrink: 0;
+        }
+
+        .showcase-tag-badge {
+          background: var(--bg-pale-blue);
+          color: var(--accent-strong-blue);
+          font-size: 11px;
+          font-weight: 700;
+          padding: 2px 10px;
+          border-radius: 9999px;
         }
 
         .showcase-code {
           font-family: var(--font-mono);
           font-size: 11px;
           font-weight: 700;
-          color: var(--accent-strong-blue);
+          color: var(--bg-navy-dark);
           letter-spacing: 0.05em;
         }
 
+        /* Photo Area with Loop */
         .showcase-photo-container {
           position: relative;
-          height: 380px;
+          height: 420px;
           overflow: hidden;
+          background: var(--bg-navy-dark);
+        }
+
+        .showcase-slide {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+          pointer-events: none;
+        }
+
+        .showcase-slide.active {
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .slide-img {
+          transform: scale(1);
+          transition: transform 6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .showcase-slide.active .slide-img {
+          transform: scale(1.05);
         }
 
         .photo-scrim {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, rgba(8, 47, 73, 0.05) 0%, rgba(8, 47, 73, 0.5) 100%);
+          background: linear-gradient(180deg, rgba(8, 47, 73, 0.1) 0%, rgba(8, 47, 73, 0.3) 40%, rgba(8, 47, 73, 0.75) 100%);
         }
 
-        .photo-caption-tag {
+        /* Overlay Text */
+        .slide-content-overlay {
           position: absolute;
-          left: 20px;
-          bottom: 20px;
+          left: 28px;
+          bottom: 24px;
+          right: 28px;
+          z-index: 5;
           display: flex;
+          flex-direction: column;
+          gap: 6px;
+          color: #FFFFFF;
+          pointer-events: none;
+        }
+
+        .slide-tag-pill {
+          display: inline-flex;
           align-items: center;
           gap: 6px;
           background: rgba(8, 47, 73, 0.85);
-          backdrop-filter: blur(8px);
+          backdrop-filter: blur(10px);
           color: #FFFFFF;
-          font-size: 12px;
-          font-weight: 600;
-          padding: 6px 14px;
+          font-size: 11.5px;
+          font-weight: 700;
+          padding: 4px 12px;
           border-radius: 9999px;
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          width: fit-content;
+        }
+
+        .slide-title-text {
+          font-size: clamp(22px, 3.2vw, 32px);
+          font-weight: 800;
+          color: #FFFFFF;
+          line-height: 1.15;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .slide-subtitle-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        .photo-caption-tag {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(8px);
+          color: var(--text-heading);
+          font-size: 12.5px;
+          font-weight: 700;
+          padding: 5px 14px;
+          border-radius: 9999px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .slide-desc-pill {
+          background: rgba(8, 47, 73, 0.7);
+          backdrop-filter: blur(8px);
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          color: #E2E8F0;
+          font-size: 12.5px;
+          font-weight: 500;
+          padding: 5px 14px;
+          border-radius: 9999px;
+        }
+
+        /* Slide Nav Controls (Prev/Next) */
+        .slide-nav-controls {
+          position: absolute;
+          right: 24px;
+          top: 20px;
+          z-index: 6;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .slide-arrow-btn {
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          background: rgba(8, 47, 73, 0.75);
+          backdrop-filter: blur(10px);
+          color: #FFFFFF;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .slide-arrow-btn:hover {
+          background: var(--accent-sky);
+          color: var(--bg-navy-dark);
+          border-color: var(--accent-sky);
+          transform: scale(1.06);
+        }
+
+        /* Position Dots */
+        .slide-dots-container {
+          position: absolute;
+          right: 24px;
+          bottom: 24px;
+          z-index: 6;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+
+        .slide-dot-pill {
+          width: 8px;
+          height: 8px;
+          border-radius: 9999px;
+          border: none;
+          background: rgba(255, 255, 255, 0.45);
+          cursor: pointer;
+          transition: all 0.25s ease;
+        }
+
+        .slide-dot-pill.active {
+          width: 22px;
+          background: var(--accent-sky);
+          box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
         }
 
         /* Quick Quote Box */
@@ -556,7 +868,7 @@ export default function Hero() {
             display: none;
           }
           .showcase-photo-container {
-            height: 280px;
+            height: 320px;
           }
         }
 
@@ -573,6 +885,17 @@ export default function Hero() {
           .showcase-code {
             display: none;
           }
+          .slide-content-overlay {
+            left: 16px;
+            bottom: 16px;
+            right: 16px;
+          }
+          .slide-desc-pill {
+            display: none;
+          }
+          .slide-dots-container {
+            display: none;
+          }
         }
 
         @media (max-width: 560px) {
@@ -584,7 +907,7 @@ export default function Hero() {
             grid-template-columns: 1fr;
           }
           .showcase-photo-container {
-            height: 220px;
+            height: 250px;
           }
           .hero-actions {
             flex-direction: column;
